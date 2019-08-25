@@ -38,7 +38,7 @@ test.skip( testsuites[0].scenario[3], async t => {
   await googlePage.verifyErrorMessage();
 });
 
-test.skip( testsuites[0].scenario[4], async t => {
+test( testsuites[0].scenario[4], async t => {
   const homepage = new HomePage(t);
 
   await homepage.navigatePage();
@@ -50,6 +50,7 @@ test.skip( testsuites[0].scenario[4], async t => {
 
   await homepage.navigatePage();
   await homepage.verifyHomepage();
+  await homepage.clickLoginFBButton(t);
 
   //Verify Back to Kumparan
 });
@@ -66,12 +67,8 @@ test( testsuites[0].scenario[5], async t => {
   await googlePage.clickNextButton();
 
   await homepage.navigatePage();
-  console.log('CONSOLE ====>', await getCookie());
-
-  await homepage.clickLoginGoogleButton(t);
-  await googlePage.inputEmail(user.google.email);
-  await homepage.navigatePage();
   await homepage.verifyHomepage();
+  await homepage.clickLoginGoogleButton(t);
 
   //Verify Back to Kumparan
 });
