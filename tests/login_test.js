@@ -1,20 +1,12 @@
 import HomePage from './pages/homePage';
-import { ClientFunction } from 'testcafe';
+import Commons from './utils/common';
 
 const { user } = require('./testData/userData');
 const testsuites = require('./testData/test_cases');
 
 fixture `Kumparan`.
   beforeEach(async t => {
-    ClientFunction(() => {
-      const cookies = document.cookie.split(";")
-        for (var i = 0; i < cookies.length; i++) {
-          var cookie = cookies[i];
-          var eqPos = cookie.indexOf("=");
-          var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-        }
-      })
+    Commons.clearCookies();
   });
 
 test.skip( testsuites[0].scenario[2], async t => {
@@ -40,7 +32,7 @@ test.skip( testsuites[0].scenario[3], async t => {
   await googlePage.verifyErrorMessage();
 });
 
-test( testsuites[0].scenario[4], async t => {
+test.skip( testsuites[0].scenario[4], async t => {
   const homepage = new HomePage(t);
 
   await homepage.navigatePage();
@@ -65,5 +57,7 @@ test.skip( testsuites[0].scenario[5], async t => {
   await googlePage.inputPass(user.google.pass);
   await googlePage.clickNextButton();
 
+  await homepage.navigatePage();
+  await homepage.verifyHomepage();
 });
 

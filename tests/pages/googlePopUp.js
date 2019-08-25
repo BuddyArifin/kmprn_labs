@@ -8,7 +8,7 @@ export default class GooglePopUp {
 
       // Elements
       this.url              = 'https://www.facebook.com/';
-      this.email            = 'input[aria-label="Email atau ponsel"]';
+      this.email            = 'input[type="email"]';
       this.nextButton       = 'div[jsname="Njthtb"]';
       this.pass             = 'input[aria-label="Masukkan sandi Anda"]';
       this.errorMessage     = 'span.TQGan'
@@ -16,14 +16,14 @@ export default class GooglePopUp {
 
     async inputEmail(email) {
       await this.testController.click(this.email);
-      await this.testController.typeText(this.email, email);
+      await this.testController.typeText(this.email, email, {paste: true});
     }
 
     async inputPass(pass) {
       await this.testController.typeText(this.pass, pass);
     }
 
-    async clickNextButton() {
+    async clickNextButton() { 
       await this.testController.click(this.nextButton);
     }
 

@@ -11,14 +11,9 @@ module.exports = [
     ]
   },
   {
-    feature: "See Posts",
+    feature: "Post",
     scenario: [
-      "User able to see posts"
-    ]
-  },
-  {
-    feature: "Put Comments",
-    scenario: [
+      "User able to see posts",
       "User unable to put comments without login",
       "User able to login after login"
     ]

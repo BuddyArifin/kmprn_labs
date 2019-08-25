@@ -8,5 +8,8 @@ module.exports = {
       email: 'regist.buddy.arifin@gmail.com',
       pass: 'nazgul_buddy'
     }
+  },
+  post: {
+    comments: 'Ini hanya test belaka'
   }
 }

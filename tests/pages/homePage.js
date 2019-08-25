@@ -1,6 +1,7 @@
 import { Selector } from 'testcafe';
 import FacebookPopUp from './facebookPopUp';
 import GooglePopUp from './googlePopUp';
+import Post from './post';
 
 export default class HomePage {
     constructor(t) {
@@ -23,7 +24,9 @@ export default class HomePage {
     }
 
     async inputSearchField(keyword) {
-      await this.testController.typeText(this.searchField, keyword);
+      await this.testController
+        .typeText(this.searchField, keyword)
+        .pressKey('enter');
     }
 
     async inputSearchField(keyword) {
@@ -40,8 +43,9 @@ export default class HomePage {
       return new GooglePopUp(t);
     }
 
-    async clickFirstNews() {
+    async clickFirstNews(t) {
       await this.testController.click(this.firstPostNews);
+      return new Post(t);
     }
 
     async verifyResultAfterSearchKeyword() {
