@@ -1,4 +1,5 @@
-import { Selector } from 'testcafe';
+import { Selector, Role } from 'testcafe';
+import { ClientFunction } from 'testcafe';
 
 export default class GooglePopUp {
     constructor(t) {
@@ -8,14 +9,29 @@ export default class GooglePopUp {
 
       // Elements
       this.url              = 'https://www.facebook.com/';
+      this.googleUrl        = 'https://accounts.google.com/';
       this.email            = 'input[type="email"]';
       this.nextButton       = 'div[jsname="Njthtb"]';
       this.pass             = 'input[aria-label="Masukkan sandi Anda"]';
       this.errorMessage     = 'span.TQGan'
+      this.firstAccount     = 'ul.FPFGmf > li:nth-child(1)';
+    }
+
+    async loginGoogle(email, pass) {
+      return Role(this.googleUrl, async () => {
+        await this.testController
+        .typeText(this.email, email, {paste: true})
+        .click(this.nextButton)
+        .typeText(this.pass, pass)
+        .click(this.nextButton);
+      });
+    }
+
+    async clickFirstAccount() {
+      await this.testController.click(Selector(this.firstAccount));
     }
 
     async inputEmail(email) {
-      await this.testController.click(this.email);
       await this.testController.typeText(this.email, email, {paste: true});
     }
 

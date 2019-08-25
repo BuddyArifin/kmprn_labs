@@ -1,8 +1,14 @@
 import HomePage from './pages/homePage';
 import Commons from './utils/common';
+import GooglePopUp from './pages/googlePopUp';
+import { ClientFunction } from 'testcafe';
 
 const { user } = require('./testData/userData');
 const testsuites = require('./testData/test_cases');
+
+const getCookie = ClientFunction(() => {
+   return document.cookie;
+});
 
 fixture `Kumparan`.
   beforeEach(async t => {
@@ -44,9 +50,11 @@ test.skip( testsuites[0].scenario[4], async t => {
 
   await homepage.navigatePage();
   await homepage.verifyHomepage();
+
+  //Verify Back to Kumparan
 });
 
-test.skip( testsuites[0].scenario[5], async t => {
+test( testsuites[0].scenario[5], async t => {
   const homepage = new HomePage(t);
 
   await homepage.navigatePage();
@@ -58,6 +66,13 @@ test.skip( testsuites[0].scenario[5], async t => {
   await googlePage.clickNextButton();
 
   await homepage.navigatePage();
+  console.log('CONSOLE ====>', await getCookie());
+
+  await homepage.clickLoginGoogleButton(t);
+  await googlePage.inputEmail(user.google.email);
+  await homepage.navigatePage();
   await homepage.verifyHomepage();
+
+  //Verify Back to Kumparan
 });
 

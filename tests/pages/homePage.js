@@ -1,4 +1,6 @@
 import { Selector } from 'testcafe';
+import { ClientFunction } from 'testcafe';
+
 import FacebookPopUp from './facebookPopUp';
 import GooglePopUp from './googlePopUp';
 import Post from './post';
@@ -17,6 +19,12 @@ export default class HomePage {
         this.loginGoogle      = 'button[data-qa-id="btn-login-google"]'
         this.firstPostNews    = '.Viewweb__StyledView-sc-61094a-0.gTzLPT:nth-child(1)';
     }
+
+    async getCookie() {
+      return ClientFunction(() => {
+        return document.cookie;
+      })
+    };
 
     async navigatePage() {
       await this.testController.maximizeWindow();
@@ -40,6 +48,13 @@ export default class HomePage {
 
     async clickLoginGoogleButton(t) {
       await this.testController.click(this.loginGoogle);
+      return new GooglePopUp(t);
+    }
+    
+    async clickLoginGoogleButtonWithRole(t, role) {
+      await this.testController
+        .useRole(role)
+        .click(this.loginGoogle);
       return new GooglePopUp(t);
     }
 
